@@ -1,0 +1,110 @@
+{
+  "owner": "JUTZUGC",
+  "code": "JUTZUGC",
+  "project": {
+    "key": "droidline",
+    "nameCn": "Droidline",
+    "repoName": "droidline-deploy-guide",
+    "oneLiner": "电脑上起一个服务，手机装一个 App 扫码配对，之后用 Python、Node、命令行或 MCP 直接操作真机",
+    "officialRepo": "https://github.com/KnifeLemon/Droidline",
+    "officialDocs": "https://droidline.dev/docs/install/",
+    "stars": "429",
+    "license": "MIT",
+    "highlights": [
+      "三不依赖：不用 ADB、不插线、不需要 root",
+      "五种接口：Python、Node、CLI、HTTP、MCP 命令一致",
+      "手机主动连出：同 Wi-Fi 或经隧道都能用",
+      "端到端加密：每条指令加密传输",
+      "适合跑机架：多台手机同一套例程，各自网络独立",
+      "可交给 Agent：通过 MCP 让模型看屏幕并操作"
+    ],
+    "mcpSupport": "Droidline 自带 MCP 能力，Release 里提供 `droidline.mcpb` 打包文件，可让 Claude、ChatGPT、Cursor 等直接操作手机；本仓库的 MCP 只提供部署步骤与常见问题。",
+    "webuiUrl": "",
+    "adapterPorts": "",
+    "collectedAt": "2026-10-31",
+    "verification": [
+      [
+        "README 确认三平台服务端、Android 9+ 与扫码配对流程",
+        "已核对 2026-10-31"
+      ],
+      [
+        "Release v0.1.12 的 SHA256SUMS 已下载核对（Windows / Linux 服务端）",
+        "已核对 2026-10-31"
+      ],
+      [
+        "未实测配对与指令下发",
+        "说明 2026-10-31"
+      ],
+      [
+        "MCP 冒烟：initialize / tools/list 返回 get_guide、search_guide、get_project_info",
+        "已验证 2026-10-31"
+      ],
+      [
+        "非目标宿主调用 get_guide 被拦截（HOST_NOT_ALLOWED）",
+        "已验证 2026-10-31"
+      ]
+    ],
+    "deploy": {
+      "type": "binary",
+      "steps": [
+        "curl -fL -o droidline.tar.gz https://github.com/KnifeLemon/Droidline/releases/download/v0.1.12/droidline_0.1.12_linux_amd64.tar.gz",
+        "echo \"2eeab8fa110a180a2e8b6f2a78138a98517e6bc171646c1d28501cfa76feafe9  droidline.tar.gz\" | sha256sum -c -",
+        "tar -xzf droidline.tar.gz",
+        "echo \"校验通过：把 droidline 放进 PATH 后启动，手机装 droidline-agent.apk 扫码配对\""
+      ],
+      "stepsPs": [
+        "curl.exe -fL -o droidline.zip https://github.com/KnifeLemon/Droidline/releases/download/v0.1.12/droidline_0.1.12_windows_amd64.zip",
+        "$h=(Get-FileHash .\\droidline.zip -Algorithm SHA256).Hash.ToLower()",
+        "if ($h -ne \"150654207bae325187be4674aced709d9a89bf9cb75d4334f3452d88567dbb99\") { throw \"SHA256 校验失败\" }",
+        "Expand-Archive -Path .\\droidline.zip -DestinationPath .\\droidline -Force",
+        "Write-Host \"校验通过：运行 .\\droidline\\droidline.exe，手机装 droidline-agent.apk 扫码配对\""
+      ],
+      "source": "https://droidline.dev/docs/install/"
+    },
+    "pitfalls": [
+      "扫码无反应：确认电脑与手机在同一 Wi-Fi，且服务端窗口没有关闭",
+      "手机端闪退：检查 Android 版本与权限是否给全",
+      "指令超时：先看服务端日志，再确认手机没有被省电策略杀进程",
+      "找不到元素：界面刷新后再读一次，或改用文本定位",
+      "跨网络连不上：配置中继或隧道，别直接暴露本机端口",
+      "Windows 拦执行：核对 SHA256 后再放行",
+      "多机互相干扰：给每台手机分配独立端口与网络"
+    ]
+  },
+  "gate": {
+    "allow": [
+      "dumate"
+    ],
+    "label": "百度搭子",
+    "url": "https://www.dumate.cn/",
+    "guideUrl": "https://github.com/JUTZUGC/droidline-deploy-guide",
+    "howToFix": [
+      "1. 打开 https://www.dumate.cn/ ，下载并安装「百度搭子」电脑端（Windows / macOS）",
+      "2. 用账号登录",
+      "3. 在对话窗口发送：你好，帮我从 github 部署 JUTZUGC/droidline-deploy-guide 到我的电脑上",
+      "4. 部署完成后，在同一对话窗口里继续使用"
+    ],
+    "hint": "请改用「百度搭子」部署后再使用；本工具没有网页版入口。",
+    "onError": "allow"
+  },
+  "keywords": [
+    "Droidline",
+    "Droidline 部署",
+    "安卓 自动化 无 ADB",
+    "真机 自动化测试",
+    "手机 MCP",
+    "droidline 教程",
+    "Python 控制 安卓",
+    "安卓 群控 开源",
+    "droidline deploy guide",
+    "AI 操作 手机"
+  ],
+  "topics": [
+    "android",
+    "automation",
+    "mobile-testing",
+    "mcp",
+    "python",
+    "droidline"
+  ]
+}
